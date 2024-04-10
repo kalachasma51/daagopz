@@ -15,504 +15,355 @@
     <pre>
 
 
-PART-A
-1) Write a C program to search for a key element in the list of n element in non-decreasing order
-using linear search technique.
-Algorithm:
-ALGORITHM : Linear_Search(A[0..n − 1], K)
-//Searches for a given value in a given array by sequential search
-//Input: An array A[0..n − 1] and a search key K
-//Output: The index of the first element in A that matches K or −1 if there are no matching elements
-i ←0
-while i < n and A[i] ≠ K do
-i ←i + 1
-if i < n return i
-else return −1
+----------------------------------------------
+  1.BINARY SEARCH
+==============================================
 
-
-Code:
-
-
-
-
-
-
-
-
-
-
-#include <stdio.h>
-int linearsearch(int a[], int n, int key);
-int main() {
-int n;
-printf("Enter the number of elements: ");
-scanf("%d", &n);
-int a[n];
-printf("Enter the elements of the array: ");
-for (int i = 0; i < n; i++)
-scanf("%d", &a[i]);
-int key;
-printf("Enter the key to search: ");
-scanf("%d", &key);
-int result = linearsearch(a, n, key);
-if (result != -1)
-printf("Key %d found at index %d\n", key, result);
-else
-printf("Key %d not found in the array\n", key);
-return 0;
-}
-int linearsearch(int a[], int n, int key) {
-Efficiency: O(n)
-3 |
-int i = 0;
-while (i < n && a[i] != key)
-i = i + 1;
-if (i < n)
-return i; // Key found at index i
-else
-return -1; // Key not found in the array
-}
-Output:
-i)
-Enter the number of elements: 5
-Enter the elements of the array: 56 -98 67 44 67
-Enter the key to search: 67
-Key 67 found at index 2
-ii)
-Enter the number of elements: 5
-Enter the elements of the array: 87 43 54 99 78
-Enter the key to search: 8
-Key 8 not found in the array
-
-
-
-
-2)Write a C program to sort array of n elements in non-decreasing order using bubble sort
-technique.
-Algorithm:
-BubbleSort(A[0..n − 1])
-//Sorts a given array by bubble sort
-//Input: An array A[0..n − 1] of orderable elements
-//Output: Array A[0..n − 1] sorted in nondecreasing order
-for i ←0 to n − 2 do
-for j ←0 to n − 2 − i do
-if A[j ]>A[j+1]
-swap A[j ] , A[j + 1]
-
-
-
-Code:
 #include <stdio.h>
 #include <stdlib.h>
-void getdata(int[],int);
-void display(int[],int);
-void bubblesort(int[],int);
-int main()
-4 |
+int main( )
 {
-int n;
-printf("Enter the number of elements :");
+int n,mid,key,i,low,high;
+printf("Enter the number of elements : ");
 scanf("%d",&n);
 int a[n];
-getdata(a,n);
-printf("Elements before sorting :");
-display(a,n);
-bubblesort(a,n);
-printf("Elements after sorting :");
-display(a,n);
+printf("Enter %d elements in ascending
+order : \n",n);
+for(i=0; i<n; i++)
+scanf("%d",&a[i]);
+printf("Enter the key element \n");
+scanf("%d",&key);
+low=0,high=n-1;
+while(low<=high)
+{
+mid=(low+high)/2;
+if(a[mid]==key)
+break;
+if(key<a[mid])
+high=mid-1;
+else
+low=mid+1;
+}
+if(low>high)
+printf("Key element is not found!");
+else
+printf("%d is present at position %d
+",key,mid+1);
 return 0;
 }
-void getdata(int a[], int n)
+----------------------------------------------
+   2. Linear Search
+==============================================
+#include <stdio.h>
+int main()
 {
-for(int i=0;i<n;i++)
+int n,key,i,arr[100];
+printf("Enter the size\n");
+scanf("%d",&n);
+printf("Enter the elements\n");
+for(i=0;i<n;i++)
+scanf("%d",&arr[i]);
+printf("Enter the key element\n");
+scanf("%d",&key);
+for(i=0;i<n;i++)
+{
+if(arr[i]==key)
+break;
+}
+if(i<n)
+printf("Element found at position %d",i+1);
+else
+printf("Element is absent");
+}
+
+----------------------------------------------
+    3.QUICK SORT
+==============================================
+
+#include <stdio.h> 
+#include <stdlib.h> 
+int main( )
+{
+int n,i;
+printf("Enter the number of elements : "); 
+scanf("%d",&n);
+int a[n];
+printf("Enter %d elements:\n",n); 
+for(i=0;i<n;i++)
+scanf("%d",&a[i]); 
+printf("\nArray before sorting:\n");
+for(i=0; i<n;i++) 
+printf("%d\t",a[i]); 
+QuickSort(a,0,n-1); 
+printf("\nArray after sorting:\n"); 
+for(i=0;i<n;i++)
+printf("%d\t",a[i]); 
+return 0;
+}
+int Partition(int a[],int l,int r)
+{
+int p,i,j,temp;
+p=a[l]; 
+i=l; 
+j=r+1; 
+do
+{
+do
+{
+i++;
+}while(a[i]<p && i<=r); 
+do
+{
+j--;
+}while(a[j]>p);
+if(i<=r)
+{
+temp=a[i]; 
+a[i]=a[j]; 
+a[j]=temp; 
+}
+}while(i<j);
+if(i<=r)
+{
+temp=a[i]; 
+a[i]=a[j]; 
+a[j]=temp; 
+}
+temp=a[l]; 
+a[l]=a[j]; 
+a[j]=temp; 
+return j;
+}
+void QuickSort(int a[],int l,int r)
+{
+if(l<r)
+{
+int s=Partition(a,l,r); 
+QuickSort(a,l,s-1); 
+QuickSort(a,s+1,r);
+}
+}
+----------------------------------------------
+    4.BUBBLE SORT
+==============================================
+
+  #include <stdio.h>
+#include <stdlib.h>
+int main( )
+{
+int n,i,j,temp;
+printf("Enter the size : ");
+scanf("%d",&n);
+int a[n];
+printf("Enter %d elements : \n",n);
+for(i=0;i<n;i++)
 scanf("%d",&a[i]);
-}
-void display(int a[ ], int n)
+for(i=0;i<n-1;i++)
 {
-for(int i=0;i<n;i++)
-{
-printf("%d \t",a[i]);
-}
-printf("\n");
-}
-void bubblesort(int a[],int n)
-{
-for(int i=0;i<=n-2;i++)
-{
-for(int j=0;j<=n-2 -i;j++)
-{
+for(j=0; j<n-1-i; j++)
 if(a[j]>a[j+1])
 {
-int temp=a[j];
+temp=a[j];
 a[j]=a[j+1];
 a[j+1]=temp;
 }
 }
+printf("Elements after sorting :\n");
+for(i=0;i<n;i++)
+printf("%d\t",a[i]);
+return 0;
 }
-}
 
 
-Output:
-Enter the number of elements :10
-90 -4 41 -14 14 -41 87 98 98 87
-Elements before sorting :90 -4 41 -14 14 -41 87 98 98 87
-Elements after sorting :-41 -14 -4 14 41 87 87 90 98 98
-5 |
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+----------------------------------------------------
+    5.SELECTION SORT
 
-
-3)Write a C program to sort array of n elements in non-decreasing order using selection sort
-technique.
-Algorithm:
-SelectionSort(A[0..n − 1])
-//Sorts a given array by selection sort
-//Input: An array A[0..n − 1] of orderable elements
-//Output: Array A[0..n − 1] sorted in nondecreasing order
-for i ←0 to n − 2 do
-min←i
-for j ←i + 1 to n − 1 do
-if A[j ]<A[min]
-min←j
-swap A[i] and A[min]
-/*
-extra:-
-swap A[i] and A[min]
-temp<-A[min]
-A[min]<-A[i]
-A[i]<-temp
-*/
-Code:
-
+----------------------------------------------------
 
 #include <stdio.h>
 #include <stdlib.h>
-void getdata(int[],int);
-void display(int[],int);
-void selectionsort(int[],int);
-int main()
+int main( )
 {
-int n;
-printf("Enter the number of elements :");
+int i,j,min,temp,n;
+printf("Enter the size:");
 scanf("%d",&n);
 int a[n];
-getdata(a,n);
-printf("Elements before sorting :");
-6 |
-display(a,n);
-selectionsort(a,n);
-printf("Elements after sorting :");
-display(a,n);
-return 0;
-}
-void getdata(int a[], int n)
-{
-for(int i=0;i<n;i++)
+printf("Enter %d elements : \n",n);
+for(i=0; i<n; i++)
 scanf("%d",&a[i]);
-}
-void display(int a[ ], int n)
+for(i=0; i<n-1; i++)
 {
-for(int i=0;i<n;i++)
+min=i;
+for(j=i+1; j<n; j++)
 {
-printf("%d \t",a[i]);
-}
-printf("\n");
-}
-void selectionsort(int a[],int n)
-{
-int t;
-for(int i=0;i<=n-2;i++)
-{
-int min=i;
-for(int j=i+1;j<=n-1;j++)
 if(a[j]<a[min])
 min=j;
-t=a[min];
+}
+temp=a[min];
 a[min]=a[i];
-a[i]=t;
-7 |
+a[i]=temp;
 }
-}
-
-Output:
-Enter the number of elements :10
-90 -4 41 -14 14 -41 87 98 98 87
-Elements before sorting :90 -4 41 -14 14 -41 87 98 98 87
-Elements after sorting :-41 -14 -4 14 41 87 87 90 98 98
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-4) Write a C program to search the pattern in the given text using brute force string matching
-algorithm. Assume matching done by ignoring case-sensitivity of alphabets.
-Algorithm:
-BruteForceStringMatch(T [0..n − 1], P[0..m − 1])
-//Implements brute-force string matching
-//Input: An array T [0..n − 1] of n characters representing a text and
-// an array P[0..m − 1] of m characters representing a pattern
-//Output: The index of the first character in the text that starts a matching substring or −1 if the
-search is unsuccessful
-for i ←0 to n − m do
-j ←0
-while j <mand P[j ]= T [i + j ] do
-j ←j + 1
-if j = m
-return i
-return −1
-Code:
-
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <ctype.h> // Include ctype.h for case-insensitive comparisons
-int strmatch(char s1[100], char s2[100]);
-int main() {
-char text[100], pattern[100];
-printf("Enter the text: ");
-8 |
-scanf("%s", text);
-printf("Enter the pattern to find: ");
-scanf("%s", pattern);
-int result = strmatch(text, pattern);
-if (result == -1)
-printf("Pattern not found\n");
-else
-printf("Pattern found at index %d\n", result);
+printf("After Sorting:\n");
+for(i=0;i<n;i++)
+printf("%d\t",a[i]);
 return 0;
 }
-int strmatch(char text[100], char pattern[100]) {
-int i, j, n, m;
-n = strlen(text);
-m = strlen(pattern);
-// Convert text and pattern to lowercase for case-insensitive comparison
-strlwr(text);
-strlwr(pattern);
-for (i = 0; i <= n - m; i++) {
-j = 0;
-while (j < m && text[i + j] == pattern[j])
-j++;
-if (j == m)
-return i;
-}
-return -1;
-}
-
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-Output:
-i)
-Enter the text: deepit_nayak
-Enter the pattern to find: Yak
-Pattern found at index 9
-ii)
-Enter the text: deepit_nayak
-Enter the pattern to find: yek
-Pattern not found
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-5) Write a C program to sort array of n elements in non-decreasing order using insertion sort
-technique.
-Algorithm:
-InsertionSort(A[0..n − 1])
-9 |
-//Sorts a given array by insertion sort
-//Input: An array A[0..n − 1] of n orderable elements
-//Output: Array A[0..n − 1] sorted in nondecreasing order
-for i ←1 to n − 1 do
-v ←A[i]
-j ←i − 1
-while j ≥ 0 and A[j ]> v do
-A[j + 1]←A[j ]
-j ←j − 1
-A[j + 1]←v
-Code:
-i) non recursive method
-
-
-
-
+----------------------------------------------------
+    6.Insertion sort
+----------------------------------------------------
 #include <stdio.h>
 #include <stdlib.h>
-void getdata(int[], int);
-void display(int[], int);
-void insertionSort(int[], int);
-int main() {
-int n;
-printf("Enter the number of elements: ");
-scanf("%d", &n);
+int main( )
+{
+int i,n,j,v;
+printf("Enter the value of n :");
+scanf("%d",&n);
 int a[n];
-getdata(a, n);
-printf("Elements before sorting:\n");
-display(a, n);
-insertionSort(a, n);
-10 |
-printf("Elements after sorting:\n");
-display(a, n);
-return 0;
-}
-void getdata(int a[], int n) {
-for (int i = 0; i < n; i++)
-scanf("%d", &a[i]);
-}
-void display(int a[], int n) {
-for (int i = 0; i < n; i++) {
-printf("%d\t", a[i]);
-}
-printf("\n");
-}
-void insertionSort(int a[], int n) {
-int i, v, j;
-for (i = 1; i < n; i++) {
-v = a[i];
-j = i - 1;
-while (j >= 0 && a[j] > v) {
-a[j + 1] = a[j];
-j = j - 1;
-}
-a[j + 1] = v;
-}
-}
-ii) recursive method
-Algorithm:
-11 |
-R_InsertionSort(A[0..n − 1])
-//Sorts a given array by recursive insertion sort
-//Input: An array A[0..n − 1] of n orderable elements
-//Output: Array A[0..n − 1] sorted in nondecreasing order
-if n<=1 then
-return
-R_InsertionSort(A[0..n − 2])
-v ←A[n-1]
-j ←n-2
-while j ≥ 0 and A[j ]> v do
-A[j + 1]←A[j ]
-j ←j − 1
-A[j + 1]←v
-Code:
-#include <stdio.h>
-#include <stdlib.h>
-void getdata(int[], int);
-void display(int[], int);
-void insertionSortRecursive(int[], int);
-int main() {
-int n;
-printf("Enter the number of elements: ");
-scanf("%d", &n);
-int a[n];
-getdata(a, n);
-printf("Elements before sorting:\n");
-display(a, n);
-insertionSortRecursive(a, n);
-printf("Elements after sorting:\n");
-display(a, n);
-return 0;
-}
-void getdata(int a[], int n) {
-for (int i = 0; i < n; i++)
-scanf("%d", &a[i]);
-}
-void display(int a[], int n) {
-
-for (int i = 0; i < n; i++) {
-printf("%d\t", a[i]);
-}
-printf("\n");
-}
-void insertionSortRecursive(int a[], int n) {
-if (n <= 1)
-return;
-insertionSortRecursive(a, n - 1);
-int l = a[n - 1];
-int j = n - 2;
-while (j >= 0 && a[j] > l) {
-a[j + 1] = a[j];
+printf("Enter %d element:\n",n);
+for(i=0; i<n; i++)
+scanf("%d",&a[i]);
+printf("Array before sorting:\n");
+for(i=0; i<n; i++)
+printf("%d\t",a[i]);
+for(i=1; i<n; i++)
+{
+v=a[i];
+j=i-1;
+while(j>=0 && a[j]>v)
+{
+a[j+1]=a[j];
 j--;
 }
-a[j + 1] = l;
+a[j+1]=v;
+}
+printf("\nArray after sorting:\n");
+for(i=0; i<n; i++)
+printf("%d\t",a[i]);
+return 0;
 }
 
-Output:
-Enter the number of elements :10
-90 -4 41 -14 14 -41 87 98 98 87
-Elements before sorting :90 -4 41 -14 14 -41 87 98 98 87
-Elements after sorting : -41 -14 -4 14 41 87 87 90 98 98
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-6) Write a C program to compute all pair shortest path of a positive weighted graph using Floyd’s
-algorithm.
-Algorithm:
-Floyd(W[1..n, 1..n])
-//Implements Floyd’s algorithm for the all-pairs shortest-paths problem
-//Input: The weight matrix W of a graph with no negative-length cycle
-//Output: The distance matrix of the shortest paths’ lengths
-D ←W //is not necessary if W can be overwritten
-for k←1 to n do
-for i ←1 to n do
-for j ←1 to n do
-13 |
-D[i, j ]←min{D[i, j ], D[i, k]+ D[k, j]}
-return D
-Code:
 
 
-
-
-
-
-
+----------------------------------------------------
+   7.String Matching
+----------------------------------------------------
 
 
 #include <stdio.h>
 #include <stdlib.h>
-#define max 10
-void floyds(int[max][max], int);
-int min(int, int);
-int main() {
-int weight[max][max], n, i, j;
-printf("Enter number of vertices: ");
-scanf("%d", &n);
-printf("Enter the weight matrix:\n");
-for (i = 1; i <= n; i++)
-for (j = 1; j <= n; j++)
-scanf("%d", &weight[i][j]);
-floyds(weight, n);
-printf("All pair shortest path matrix:\n");
-for (i = 1; i <= n; i++) {
-for (j = 1; j <= n; j++)
-printf("%d\t", weight[i][j]);
-printf("\n");
+#include<string.h>
+int main( )
+{
+char text[100],pattern[25];
+int i,j;
+printf("Enter the text : \n");
+gets(text);
+printf("Enter the pattern :\n");
+gets(pattern);
+int n=strlen(text);
+int m=strlen(pattern);
+for(i=0;i<=n-m;i++)
+{
+j=0;
+while(j<m && pattern[j]==text[i+j])
+j++;
+if(j==m)
+{
+printf("The pattern is found at position
+%d",i+1);
+exit(0);
 }
+}
+printf("Pattern Not Found!!");c
 return 0;
 }
-void floyds(int weight[max][max], int n) {
-int i, j, k;
-for (k = 1; k <= n; k++)
-for (i = 1; i <= n; i++)
-for (j = 1; j <= n; j++)
-weight[i][j] = min(weight[i][j], weight[i][k] + weight[k][j]);
+
+    
+
+
+    
+----------------------------------------------------
+        8.MERGE SORT
+----------------------------------------------------
+    
+#include <stdio.h>
+#include <stdlib.h>
+int main( )
+{
+int i,n;
+printf("Enter the number of elements : ");
+scanf("%d",&n);
+int a[n];
+printf("Enter %d elements :\n",n);
+for(i=0; i<n; i++)
+scanf("%d",&a[i]);
+printf("Array before sorting:\n");
+for(i=0; i<n; i++)
+printf("%d\t",a[i]);
+mergeSort(n,a);
+printf("\nArray after sorting:\n");
+for(i=0; i<n; i++)
+printf("%d\t",a[i]);
+return 0;
 }
-int min(int a, int b) {
-if (a < b)
-return a;
+void Merge(int b[],int c[],int a[],int p,int q)
+{
+int i=0,j=0,k=0;
+while(i<p&&j<q)
+{
+if(b[i]<=c[j])
+{
+a[k]=b[i];
+i++;
+}
 else
-return b;
-14 |
+{
+a[k]=c[j];
+j++;
+}
+k++;
+}
+if(i==p)
+{
+while(j<q && k<(p+q))
+{
+a[k]=c[j];
+j++;
+k++;
+}
+}
+else
+{
+while(i<p && k<(p+q))
+{
+a[k]=b[i];
+k++;
+i++;
+}
+}
+}
+void mergeSort(int n,int a[])
+{
+if(n>1)
+{
+int i,j,len;
+len=n/2;
+int b[len],c[n-len];
+for(i=0,j=0; i<len && j<len; i++,j++)
+{
+b[j]=a[i];
+}
+for(i=len,j=0; i<n && j<n-len; i++,j++)
+{
+c[j]=a[i];
+}
+mergeSort(len, b);
+mergeSort(n-len, c);
+Merge(b,c,a,len,n-len);
+}
 }
 
-
-
-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-7) Write a C program to compute transitive closure of a graph using Warshall’s algorithm.
-Algorithm:
-Warshall(A[1..n, 1..n])
-//ImplementsWarshall’s algorithm for computing the transitive closure
-//Input: The adjacency matrix A of a digraph with n vertices
-//Output: The transitive closure of the digraph
-R(0) ←A
-for k←1 to n do
-for i ←1 to n do
-for j ←1 to n do
-R(k)[i, j ]←R(k−1)[i, j ] or (R(k−1)[i, k] and R(k−1)[k, j])
-return R(n)
-code:
+____________________________________________________________________
 
 
 
@@ -553,6 +404,45 @@ else
 return b;
 }
 
+
+_________________________________________________________
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#define max 10
+void floyds(int[max][max], int);
+int min(int, int);
+int main() {
+int weight[max][max], n, i, j;
+printf("Enter number of vertices: ");
+scanf("%d", &n);
+printf("Enter the weight matrix:\n");
+for (i = 1; i <= n; i++)
+for (j = 1; j <= n; j++)
+scanf("%d", &weight[i][j]);
+floyds(weight, n);
+printf("All pair shortest path matrix:\n");
+for (i = 1; i <= n; i++) {
+for (j = 1; j <= n; j++)
+printf("%d\t", weight[i][j]);
+printf("\n");
+}
+return 0;
+}
+void floyds(int weight[max][max], int n) {
+int i, j, k;
+for (k = 1; k <= n; k++)
+for (i = 1; i <= n; i++)
+for (j = 1; j <= n; j++)
+weight[i][j] = min(weight[i][j], weight[i][k] + weight[k][j]);
+}
+int min(int a, int b) {
+if (a < b)
+return a;
+else
+return b;
+}
 
 
 
